@@ -12,4 +12,5 @@ useRecoilState : 둘다 얻고 싶을때
 
 5.16
 Selectors(derived state) : state를 입력받아서 (변형해 반환하는 순수함수를 거쳐) 반환된 값 /
+state를 가져다가 원하는대로 모습을 변형시키는 도구 / 
 atom의 output을 변형하는 도구(<->atom은 그냥 배열 : 단순히 배열을 줌)

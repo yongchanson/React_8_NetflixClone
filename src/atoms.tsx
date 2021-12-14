@@ -5,6 +5,11 @@ export interface IToDo {
     id: number;
     category: "TO_DO" | "DOING" | "DONE";
 }
+
+export const categoryState = atom({
+    key: "category",
+    default: "TO_DO",
+});
 // recoil의 atom함수
 export const toDoState = atom<IToDo[]>({ // IToDo객체로 이루어진 배열임을 나타냄
     key:"toDo",
@@ -14,12 +19,21 @@ export const toDoState = atom<IToDo[]>({ // IToDo객체로 이루어진 배열�
 
 export const toDoSelector = selector({
     key: "toDoSelector",
-    get: ({ get }) => {
+    get: ({ get }) => {//???
       const toDos = get(toDoState);
-      return [
-        toDos.filter((toDo) => toDo.category === "TO_DO"),//todo의 카테고리가 "TO_DO"와 같으면 남아있다.  
-        toDos.filter((toDo) => toDo.category === "DOING"),
-        toDos.filter((toDo) => toDo.category === "DONE"),
-      ];
+      const category = get(categoryState);
+    //   return [ //(방법1)배열을 담은 배열을 반환하는 것
+    //     toDos.filter((toDo) => toDo.category === "TO_DO"),//todo의 카테고리가 "TO_DO"와 같으면 남아있다.  
+    //     toDos.filter((toDo) => toDo.category === "DOING"),
+    //     toDos.filter((toDo) => toDo.category === "DONE"),
+    //   ];
+
+    //   //(방법2)배열을 담은 배열을 반환하는 것
+    //     if(category==="TO_DO") return toDos.filter((toDo) => toDo.category === "TO_DO"),//todo의 카테고리가 "TO_DO"와 같으면 남아있다.  
+    //     if(category==="DOING") returntoDos.filter((toDo) => toDo.category === "DOING"),
+    //     if(category==="DONE") returntoDos.filter((toDo) => toDo.category === "DONE"),
+    //  
+
+      return toDos.filter((toDo) => toDo.category === category); //카테고리에 따라 하나의 배열만 반환
     },
   });
