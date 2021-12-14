@@ -1,14 +1,23 @@
 import { atom, selector } from "recoil";
 
+export enum Categories { //enumerable(열거형) : 이름이 있는 상수들의 집합을 정의
+  // "TO_DO",
+  // "DOING",
+  // "DONE",
+  "TO_DO" = "TO_DO",//타입을 string으로 설정
+  "DOING" = "DOING",
+  "DONE" = "DONE",
+}
+
 export interface IToDo {
     text: string;
     id: number;
-    category: "TO_DO" | "DOING" | "DONE";
+    category: Categories;
 }
 
-export const categoryState = atom({
+export const categoryState = atom<Categories>({
     key: "category",
-    default: "TO_DO",
+    default: Categories.TO_DO,
 });
 // recoil의 atom함수
 export const toDoState = atom<IToDo[]>({ // IToDo객체로 이루어진 배열임을 나타냄

@@ -2,7 +2,7 @@
 import React from "react";
 // import { toDoSelector, toDoState } from "../atoms";
 import { useRecoilValue, useRecoilState } from "recoil";
-import { categoryState, toDoSelector } from "../atoms";
+import { categoryState, toDoSelector, Categories } from "../atoms";
 import CreateToDo from "./CreateToDo";
 import ToDo from "./ToDo";
 
@@ -20,18 +20,19 @@ function ToDoList() {
     const [category, setCategory] = useRecoilState(categoryState);
     const onInput = (event:React.FormEvent<HTMLSelectElement>) => {
         // console.log(event.currentTarget.value) //옵션을 셀렉했을때 옵션value을 받는지 확인
-        setCategory(event.currentTarget.value); //input이 변할때 setCategory호출
+        setCategory(event.currentTarget.value as any); //input이 변할때 setCategory호출
         // console.log(category);//옵션을 셀렉했을때 카테고리를 받는지 확인(vlaue={category}필요)
-    }
+    };
+    // console.log(toDos);
 return(
     <div>
         <h1> ToDo List</h1>
         <hr />
         {/* submit할거면 <Form> 필요 */}
             <select value={category} onInput={onInput}>
-                <option value="TO_DO">ToDo</option>
-                <option value="DOING">Doing</option>
-                <option value="DONE">Done</option>
+                <option value={Categories.TO_DO}>ToDo</option>
+                <option value={Categories.DOING}>Doing</option>
+                <option value={Categories.DONE}>Done</option>
             </select>
         <CreateToDo />
         {/* {category ==="TO_DO" && toDo.map((aToDo) => <ToDo key={aToDo.id} {...aToDo} />)}
