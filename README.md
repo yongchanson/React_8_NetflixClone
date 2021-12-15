@@ -1,6 +1,6 @@
-#React toDoList
+# React toDoList
 
-###React Hook Form
+### React Hook Form
   
 - form과 input을 쉽게 만들고 관리해준다.
 - useForm을 이용하면 다양한 메서드를 가져와 사용할 수 있다.
