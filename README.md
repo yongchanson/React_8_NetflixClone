@@ -17,7 +17,7 @@
 - `setValue`
   - setValue("email","")를 통해 form을 submit 후, input의 값을 ""로 비워줄 수 있다.
  
--5.11
+- 5.11
   - atom값에 접근하기 위해선 useRecoilValue함수 사용 / useRecoilValue(atom)
 
   - useRecoilValue : value만 불러올때
