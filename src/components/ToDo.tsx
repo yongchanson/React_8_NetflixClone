@@ -27,6 +27,16 @@ function ToDo({ text, category, id }: IToDo) {
       ];
     });
   };
+  //삭제기능
+  const DeleteClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setToDos((oldToDos) => {
+      const targetIndex2 = oldToDos.findIndex((todo) => todo.id === id);
+      return [
+        ...oldToDos.slice(0, targetIndex2),
+        ...oldToDos.slice(targetIndex2 + 1),
+      ];
+    });
+  };  
   
   return (
     <li>
@@ -48,6 +58,9 @@ function ToDo({ text, category, id }: IToDo) {
         </button>
         //<button onClick={() => onClick("Done")}>Done</button>
       )}
+        <button name={Categories.DELETE} onClick={DeleteClick}>
+          Delete
+        </button>
     </li>
   );
 }

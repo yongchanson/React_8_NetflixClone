@@ -7,6 +7,7 @@ interface IForm {
 }
 
 function CreateToDo() {
+    const toDoSave = useRecoilValue(toDoState);//로컬 스토리지
     // const [toDos, setToDos] = useRecoilState(toDoState);
     const setToDos = useSetRecoilState(toDoState);
     const category = useRecoilValue(categoryState);//카테고리값을 기억하기 위해
@@ -16,7 +17,7 @@ function CreateToDo() {
         setValue("toDo", "");
 };
 // console.log(toDos);
-
+        localStorage.setItem("todos", JSON.stringify(toDoSave));//로컬 스토리지
 return(
     <div>
         <form onSubmit={handleSubmit(handleValid)}>

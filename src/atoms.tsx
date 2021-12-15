@@ -1,5 +1,9 @@
 import { atom, selector } from "recoil";
 
+//로컬 스토리지
+const localStorageTodo = localStorage.getItem("todos");
+const parseTodo = JSON.parse(localStorageTodo as string);
+
 export enum Categories { //enumerable(열거형) : 이름이 있는 상수들의 집합을 정의
   // "TO_DO",
   // "DOING",
@@ -7,6 +11,7 @@ export enum Categories { //enumerable(열거형) : 이름이 있는 상수들의
   "TO_DO" = "TO_DO",//타입을 string으로 설정
   "DOING" = "DOING",
   "DONE" = "DONE",
+  "DELETE" = "DELETE",
 }
 
 export interface IToDo {
@@ -22,9 +27,12 @@ export const categoryState = atom<Categories>({
 // recoil의 atom함수
 export const toDoState = atom<IToDo[]>({ // IToDo객체로 이루어진 배열임을 나타냄
     key:"toDo",
-    default:[],
-//selecter사용전에는 모든 todo(카테고리상관X)가 같은 statd제 저장되고 있음
+    default: localStorageTodo !== null ? parseTodo : [],
+    // default: JSON.parse(localStorage.getItem("TODO") || "[]"),
+//selecter사용전에는 모든 todo(카테고리상관X)가 같은 statd에 저장되고 있음
 })
+
+
 
 export const toDoSelector = selector({
     key: "toDoSelector",
