@@ -2,8 +2,8 @@
 
 ###React Hook Form
   
--form과 input을 쉽게 만들고 관리해준다.
--useForm을 이용하면 다양한 메서드를 가져와 사용할 수 있다.
+- form과 input을 쉽게 만들고 관리해준다.
+- useForm을 이용하면 다양한 메서드를 가져와 사용할 수 있다.
 - `register()`
   -input에 등록하는 함수(input에 필요한 모든속성을 가진다.)
   - `{...register("input type명")}`를 통해 input의 type, 속성을 지정할 수 있다.
