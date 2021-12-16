@@ -1,10 +1,11 @@
 
 import React from "react";
-// import { toDoSelector, toDoState } from "../atoms";
+import { useEffect, useState } from "react";
 import { useRecoilValue, useRecoilState } from "recoil";
-import { categoryState, toDoSelector, Categories } from "../atoms";
+import { categoryState, toDoSelector, Categories, customCategoryState, toDoState } from "../atoms";
 import CreateToDo from "./CreateToDo";
 import ToDo from "./ToDo";
+import CreateCategory from "./CreateCategory";
 
 function ToDoList() {
     // const toDos = useRecoilValue(toDoState);
@@ -18,11 +19,16 @@ function ToDoList() {
     // const [toDo, doing, done] = useRecoilValue(toDoSelector);//useRecoilValue(toDoSelector)의 3개의배열을 꺼내기 위한 작업
     const toDos = useRecoilValue(toDoSelector);
     const [category, setCategory] = useRecoilState(categoryState);
-    const onInput = (event:React.FormEvent<HTMLSelectElement>) => {
+    const customCategories = useRecoilValue(customCategoryState); // 커스텀카테고리
+    const allToDos = useRecoilValue(toDoState);//새 카테고리가 여러개 생기는것 방지
+    const onInput = (event:React.FormEvent<HTMLSelectElement>) => {    
         // console.log(event.currentTarget.value) //옵션을 셀렉했을때 옵션value을 받는지 확인
         setCategory(event.currentTarget.value as any); //input이 변할때 setCategory호출
         // console.log(category);//옵션을 셀렉했을때 카테고리를 받는지 확인(vlaue={category}필요)
     };
+    useEffect(() => {
+        localStorage.setItem("TODOS", JSON.stringify(allToDos))
+    }, [allToDos]) //새 카테고리가 여러개 생기는것 방지
     // console.log(toDos);
 return(
     <div>
@@ -33,8 +39,15 @@ return(
                 <option value={Categories.TO_DO}>ToDo</option>
                 <option value={Categories.DOING}>Doing</option>
                 <option value={Categories.DONE}>Done</option>
+                {customCategories.map(category => (//커스텀카테고리
+                    <option key={category.id} value={category.title}>{category.title}</option>
+                ))}
             </select>
+            
+            <CreateCategory />{/*카테고리추가 */}
+
         <CreateToDo />
+
         {/* {category ==="TO_DO" && toDo.map((aToDo) => <ToDo key={aToDo.id} {...aToDo} />)}
         {category ==="DOING" && doing.map((aToDo) => <ToDo key={aToDo.id} {...aToDo} />)}
         {category ==="DONE" && done.map((aToDo) => <ToDo key={aToDo.id} {...aToDo} />)} */}

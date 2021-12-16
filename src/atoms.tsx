@@ -4,6 +4,16 @@ import { atom, selector } from "recoil";
 const localStorageTodo = localStorage.getItem("todos");
 const parseTodo = JSON.parse(localStorageTodo as string);
 
+//카테고리 추가
+export interface ICustomCategory {
+  title: string;
+  id : number;
+}
+export const customCategoryState = atom<ICustomCategory[]>({
+  key:"customCategory",
+  default: []
+})
+
 export enum Categories { //enumerable(열거형) : 이름이 있는 상수들의 집합을 정의
   // "TO_DO",
   // "DOING",
@@ -54,3 +64,6 @@ export const toDoSelector = selector({
       return toDos.filter((toDo) => toDo.category === category); //카테고리에 따라 하나의 배열만 반환
     },
   });
+
+
+  
