@@ -1,12 +1,14 @@
 # React toDoList
-<<<<<<< HEAD
 
-=======
   - CreateCategory 개선하고 싶은 부분
-    - 추가한 카테고리가 로컬스토리지에 저장되어 있으나 새로고침하면 나오지 않음
+    - 추가한 카테고리가 로컬스토리지에 남아 있으나 새로고침하면 나오지 않음
     - 동일한 이름의 카테고리를 만들 수 있음
-    - git pull --rebase origin  master
->>>>>>> 0807617 (CreateCategory update)
+
+  - 오류수정  
+    - git pull --rebase origin master : Commit 이력을 한줄로 깔끔하게 관리
+    - git rebase --continue : 수정사항 적용
+    - git rebase --abort : 수정사항 되돌리기
+
 ### React Hook Form
   
 - form과 input을 쉽게 만들고 관리해준다.
@@ -37,8 +39,4 @@
 - 5.16
   - Selectors(derived state)
     - state자체를 바꾸지 않고 state를 가져다가 원하는대로 모습을 변형시키는 도구
-<<<<<<< HEAD
     - atom의 output을 변형하는 도구(<->atom은 그냥 배열 : 단순히 배열을 줌)
-=======
-    - atom의 output을 변형하는 도구(<->atom은 그냥 배열 : 단순히 배열을 줌)
->>>>>>> 0807617 (CreateCategory update)
