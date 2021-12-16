@@ -25,7 +25,7 @@ function CreateCategory() {
     return(
         <Form onSubmit={handleSubmit(onValid)}>
             <input {...register("customCategory")} placeholder="새 카테고리 추가" />
-            <Button><i className="fas fa-plus-square"></i></Button>
+            <Button>Category Add</Button>
         </Form>
     )
 }
