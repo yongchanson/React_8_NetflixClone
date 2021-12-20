@@ -1,10 +1,11 @@
 import { useQuery } from "react-query";
 import styled from "styled-components";
 import { motion, AnimatePresence, useViewportScroll } from "framer-motion";
-import { getMovies, IGetMoviesResult } from "../api";
+import { getMovies, IGetMoviesResult, topMovies, upcomingMovie } from "../api";
 import { makeImagePath } from "../utils";
 import { useState } from "react"
 import { useHistory, useRouteMatch } from "react-router-dom";
+import noPoster from '../Components/noPoster.png';
 
 const Wrapper = styled.div`
   background: black;
@@ -163,6 +164,46 @@ const infoVariants = {
   },
 };
 
+const ArrowBtn = styled.div`
+  width: 50px;
+  height: 200px;
+  background-color: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: 0;
+`;
+
+const UpcomingSlide = styled.div`
+  margin-top: 200px;
+  position: relative;
+`;
+const TopSlide = styled.div`
+  margin-top: 300px;
+  position: relative;
+`;
+const BigGenres = styled.ul`
+  display: flex;
+  position: relative;
+  top: -80px;
+  padding: 20px;
+`;
+const Genre = styled.li`
+  margin-right: 10px;
+  background-color: red;
+  font-size: 17px;
+  font-weight: bold;
+  border-radius: 5px;
+  padding: 5px 5px;
+  transition: all 0.3s linear;
+  cursor: pointer;
+  &:hover {
+    color: black;
+    background-color: white;
+  }
+`;
+
 const offset = 6; //한페이지에 보이는 개수
 
 function Home() {
@@ -173,8 +214,14 @@ function Home() {
   const { data, isLoading } = useQuery<IGetMoviesResult>(
     ["movies", "nowPlaying"], 
     getMovies);
+  const { data: topMovieData, isLoading: topMovieLoading,
+    } = useQuery<IGetMoviesResult>(['movie', 'topMovie'], topMovies);
+  const { data: upcomingData, isLoading: upcomingLoading,
+    } = useQuery<IGetMoviesResult>(['movie', 'upcoming'], upcomingMovie);  
   // console.log(data, isLoading);
   const [index, setIndex] = useState(0);
+  const [topIndex, setTopIndex] = useState(0);
+  const [upIndex, setUpIndex] = useState(0);
   // const incraseIndex = () => setIndex((prev) => prev + 1);
   const [leaving, setLeaving] = useState(false);
   const incraseIndex = () => {
@@ -184,6 +231,25 @@ function Home() {
       const totalMovies = data.results.length - 1;
       const maxIndex = Math.floor(totalMovies / offset) - 1;
       setIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
+    }
+  };
+  const upInCreseIndex = () => {
+    if (upcomingData) {
+      if (leaving) return;
+      toggleLeaving();
+      const totalMovies = upcomingData?.results.length - 2;
+      const maxIndex = Math.floor(totalMovies / offset) - 1;
+      setUpIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
+    }
+  };
+  const topIncreseIndex = () => {
+    if (topMovieData) {
+      if (leaving) return;
+      toggleLeaving();
+      const totalMovies = topMovieData?.results.length - 2;
+
+      const maxIndex = Math.floor(totalMovies / offset) - 1;
+      setTopIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
     }
   };
   const toggleLeaving = () => setLeaving((prev) => !prev);
@@ -199,13 +265,14 @@ return (
       {isLoading ? (<Loader>Loading...</Loader>) : (
       <>
         <Banner
-            onClick={incraseIndex}
+            // onClick={incraseIndex}
             bgPhoto={makeImagePath(data?.results[0].backdrop_path || "")}
         >
           <Title>{data?.results[0].title}</Title>
           <Overview>{data?.results[0].overview}</Overview>
         </Banner> 
           <Slider>
+          <h1>상영중인 영화</h1>
           {/* 슬라이더 제자리시작 : initial={false} */}
             <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
               <Row
@@ -231,7 +298,11 @@ return (
                       variants={boxVariants}
                       onClick={() => onBoxClicked(movie.id)}
                       transition={{ type: "tween" }}
-                      bgPhoto={makeImagePath(movie.backdrop_path, "w500")}
+                      bgPhoto={
+                        movie.backdrop_path
+                        ? makeImagePath(movie.backdrop_path, 'w500')
+                        : noPoster
+                    }
                       >
                       <Info variants={infoVariants}>
                         <h4>{movie.title}</h4>
@@ -240,7 +311,88 @@ return (
                   ))}
               </Row>
             </AnimatePresence>
+            <ArrowBtn onClick={incraseIndex}>
+              화살표
+            </ArrowBtn>
           </Slider>
+{/* 커밍슬라이더 */}
+          <UpcomingSlide>
+            <h1>곧 나올 영화</h1>
+            <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
+              <Row
+                variants={rowVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                transition={{ type: 'tween', duration: 1 }}
+                key={upIndex}
+              >
+                {upcomingData?.results
+                  .slice(2)
+                  .slice(offset * upIndex, offset * upIndex + offset)
+                  .map((movie) => (
+                    <Box
+                      layoutId={String(movie.id)}
+                      key={movie.id}
+                      whileHover="hover"
+                      initial="normal"
+                      variants={boxVariants}
+                      transition={{ type: 'tween' }}
+                      onClick={() => onBoxClicked(movie.id)}
+                      bgPhoto={
+                        movie.backdrop_path
+                        ? makeImagePath(movie.backdrop_path, 'w500')
+                        : noPoster
+                      }
+                    >
+                      <Info variants={infoVariants}>
+                        <h4>{movie.title}</h4>
+                      </Info>
+                    </Box>
+                  ))}
+              </Row>
+            </AnimatePresence>
+            <ArrowBtn onClick={upInCreseIndex}>
+              화살표
+            </ArrowBtn>
+          </UpcomingSlide>          
+{/* 평점탑영화 */}
+<TopSlide>
+            <h1>평점 탑 영화</h1>
+            <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
+              <Row
+                variants={rowVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                transition={{ type: 'tween', duration: 1 }}
+                key={topIndex}
+              >
+                {topMovieData?.results
+                  .slice(2)
+                  .slice(offset * topIndex, offset * topIndex + offset)
+                  .map((movie) => (
+                    <Box
+                      layoutId={String(movie.id)}
+                      key={movie.id}
+                      whileHover="hover"
+                      initial="normal"
+                      variants={boxVariants}
+                      transition={{ type: 'tween' }}
+                      onClick={() => onBoxClicked(movie.id)}
+                      bgPhoto={makeImagePath(movie.backdrop_path, 'w500')}
+                    >
+                      <Info variants={infoVariants}>
+                        <h4>{movie.title}</h4>
+                      </Info>
+                    </Box>
+                  ))}
+              </Row>
+            </AnimatePresence>
+            <ArrowBtn onClick={topIncreseIndex}>
+              화살표
+            </ArrowBtn>
+          </TopSlide>
           <AnimatePresence>
             {bigMovieMatch ? (
               <>
@@ -265,6 +417,7 @@ return (
                       />
                       <BigTitle>{clickedMovie.title}</BigTitle>
                       <BigOverview>{clickedMovie.overview}</BigOverview>
+                      
                     </>
                   )}
               </BigMovie>

@@ -1,7 +1,8 @@
-import { Link, useRouteMatch } from "react-router-dom";
+import { Link, useRouteMatch, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { motion, useAnimation, useViewportScroll } from "framer-motion";
 import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 
 const Nav = styled(motion.nav)`
   display: flex;
@@ -49,7 +50,7 @@ const Item = styled.li`
   }
 `;
 
-const Search = styled.span`
+const Search = styled.form`
   color: white;
   svg {
     height: 25px;
@@ -108,6 +109,10 @@ const navVariants = {
   },
 };
 
+interface IForm {
+  keyword: string;
+}
+
 function Header() {
   const homeMatch = useRouteMatch("/");//메뉴아래 원이동을 위한 작업
   const tvMatch = useRouteMatch("/tv");
@@ -115,6 +120,11 @@ function Header() {
   const [searchOpen, setSearchOpen] = useState(false);
   const inputAnimation = useAnimation();
   const { scrollY } = useViewportScroll();//스크롤 값
+  const history = useHistory();
+  const { register, handleSubmit } = useForm<IForm>();
+  const onValid = (data: IForm) => {
+    history.push(`/search?keyword=${data.keyword}`);
+  };
   const navAnimation = useAnimation();
   const toggleSearch = () => {
     if (searchOpen) {
@@ -163,7 +173,7 @@ function Header() {
         </Items>
       </Col>
       <Col>
-        <Search>
+        <Search onSubmit={handleSubmit(onValid)}>
             <motion.svg
                 onClick={toggleSearch}
                 animate={{ x: searchOpen ? -210 : 0 }}
@@ -180,6 +190,7 @@ function Header() {
           </motion.svg>
 
           <Input
+            {...register("keyword", { required: true, minLength: 2 })}
             animate={inputAnimation}
             initial={{ scaleX: 0 }}
             transition={{ type: "linear" }}
