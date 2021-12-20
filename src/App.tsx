@@ -16,7 +16,7 @@ function App() {
 				<Search />
 			</Route>
 			{/* 모든 경로가 /로 반환되는 것을 방지 : 아래로 이동 */}
-			<Route path="/">
+			<Route path={["/", "/movies/:movieId"]}>
 				<Home />
 			</Route>
 		</Switch>
