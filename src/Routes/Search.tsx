@@ -204,6 +204,71 @@ function Search() {
     data?.results.find((movie) => movie.id === +bigMovieMatch.params.movieId);
 
   return (
-
+    <Wrapper>
+        {isLoading ? (
+        <Loader>Loading...</Loader>
+      ) : (
+        <>
+        
+        <BoxContainer>
+            {data?.results.map((search) => (
+            <AnimatePresence>  
+                
+              <Box
+                    initial="normal"
+                    whileHover="hover"
+                    variants={boxVariants}
+                    key={search.id}
+                    onClick={() => onBoxClicked(search.media_type, search.id)}
+                    bgPhoto={
+                      search.backdrop_path
+                        ? makeImagePath(search.backdrop_path, 'w500')
+                        : makeImagePath(search.poster_path, 'w500')
+                    }
+                  >
+                    <Info variants={infoVariants}>
+                      <h4>{search.title ? search.title : search.name}</h4>
+                    </Info>
+              </Box>
+            
+            </AnimatePresence>
+            ))}
+      </BoxContainer>      
+          
+      <AnimatePresence>
+            {bigMovieMatch ? (
+              <>
+              <Overlay
+                onClick={onOverlayClick}
+                exit={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+              />
+              <BigMovie
+                style={{ top: scrollY.get() + 100 }}
+                layoutId={bigMovieMatch.params.movieId}
+              >
+                  {clickedMovie && (
+                    <>
+                      <BigCover
+                        style={{
+                          backgroundImage: `linear-gradient(to top, black, transparent), url(${makeImagePath(
+                            clickedMovie.backdrop_path,
+                            "w500"
+                          )})`,
+                        }}
+                      />
+                      <BigTitle>{clickedMovie.title}</BigTitle>
+                      <BigOverview>{clickedMovie.overview}</BigOverview>
+                    </>
+                  )}
+              </BigMovie>
+            </>
+            ) : null}
+          </AnimatePresence>      
+        
+        </>
+        )}
+    </Wrapper>
+  );
 };
 export default Search;

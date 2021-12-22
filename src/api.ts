@@ -92,3 +92,29 @@ export function getTopRatedTv() {
     `${BASE_PATH}/tv/top_rated?api_key=${API_KEY}&page=2`
   ).then((response) => response.json());
 }
+
+//detail
+export interface IGetMovieDetail {
+  adult: boolean;
+  backdrop_path: string;
+  genres: IGenres[];
+  homepage: string;
+  id: number;
+  title: string;
+  vote_average: number;
+  overview: string;
+  poster_path?: string;
+  name: string;
+  runtime: number;
+  number_of_seasons: number;
+}
+export function getMovieDetail(movieId: string) {
+  return fetch(
+    `${BASE_PATH}/movie/${movieId}?api_key=${API_KEY}`
+  ).then((response) => response.json());
+}
+export function getTvDetail(tvId: string) {
+  return fetch(
+    `${BASE_PATH}/tv/${tvId}?api_key=${API_KEY}`
+  ).then((response) => response.json());
+}

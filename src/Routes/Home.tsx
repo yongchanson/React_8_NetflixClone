@@ -6,6 +6,7 @@ import { makeImagePath } from "../utils";
 import { useState } from "react"
 import { useHistory, useRouteMatch } from "react-router-dom";
 import noPoster from '../Components/noPoster.png';
+import Detail from '../Components/Detail';
 
 const Wrapper = styled.div`
   background: black;
@@ -211,7 +212,7 @@ function Home() {
   const bigMovieMatch = useRouteMatch<{ movieId: string }>("/movies/:movieId");
   // console.log(bigMovieMatch);
   const { scrollY } = useViewportScroll();
-  const { data, isLoading } = useQuery<IGetMoviesResult>(
+  const { data, isLoading: nowLoading} = useQuery<IGetMoviesResult>(
     ["movies", "nowPlaying"], 
     getMovies);
   const { data: topMovieData, isLoading: topMovieLoading,
@@ -260,6 +261,8 @@ function Home() {
   const clickedMovie =
     bigMovieMatch?.params.movieId &&
     data?.results.find((movie) => movie.id === +bigMovieMatch.params.movieId);
+
+    const isLoading = nowLoading || topMovieLoading || upcomingLoading;
 return (
   <Wrapper>
       {isLoading ? (<Loader>Loading...</Loader>) : (
@@ -405,25 +408,12 @@ return (
                 style={{ top: scrollY.get() + 100 }}
                 layoutId={bigMovieMatch.params.movieId}
               >
-                  {clickedMovie && (
-                    <>
-                      <BigCover
-                        style={{
-                          backgroundImage: `linear-gradient(to top, black, transparent), url(${makeImagePath(
-                            clickedMovie.backdrop_path,
-                            "w500"
-                          )})`,
-                        }}
-                      />
-                      <BigTitle>{clickedMovie.title}</BigTitle>
-                      <BigOverview>{clickedMovie.overview}</BigOverview>
-                      
-                    </>
-                  )}
+                <Detail />
               </BigMovie>
             </>
             ) : null}
-          </AnimatePresence>          
+          </AnimatePresence>   
+                 
       </>
     )} 
   </Wrapper>
