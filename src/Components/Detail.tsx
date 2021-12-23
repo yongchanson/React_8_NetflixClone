@@ -3,10 +3,9 @@ import { useQuery } from 'react-query';
 import styled from 'styled-components';
 import { getMovieDetail, getTvDetail, IGetMovieDetail } from '../api';
 import { makeImagePath } from '../utils';
-// import Similar from './Similar';
 import noPoster from '../Components/noPoster.png';
 import { useParams } from 'react-router-dom';
-// import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet';
 
 const Container = styled.div`
   border-radius: 20px;
@@ -122,24 +121,34 @@ interface RouteParams {
 }
 const Detail = () => {
   const { movieId, tvId } = useParams() as RouteParams;
+
   const { data, isLoading: movieLoading } = useQuery<IGetMovieDetail>(
     ['movieDetail'],
     () => (movieId ? getMovieDetail(movieId) : getTvDetail(tvId)),
     { keepPreviousData: true }
   );
 
-//   const time = data?.runtime;
-//   const hour = time && Math.floor(time / 60);
-//   const minutes = time && time % 60;
+  const time = data?.runtime;
+  const hour = time && Math.floor(time / 60);
+  const minutes = time && time % 60;
 
   return (
     <>
-
       {movieLoading ? (
         <Loader>Loading...</Loader>
       ) : (
         <Container>
-
+          <Helmet>
+            <title>
+              {movieId ? (
+                data?.title
+              ) : movieLoading ? (
+                <Loader>Loading...</Loader>
+              ) : (
+                data?.name
+              )}
+            </title>
+          </Helmet>
           <BigImage
             style={{
               backgroundImage: data?.backdrop_path
@@ -151,22 +160,18 @@ const Detail = () => {
           />
           <BigHeader>
             <BigTitle>{movieId ? data?.title : data?.name}</BigTitle>
-            {/* <BigRate>{`${data && data?.vote_average}`}</BigRate> */}
+            <BigRate>{`⭐️ ${data && data?.vote_average}`}</BigRate>
           </BigHeader>
-          <BigOverView>{data?.overview}</BigOverView>
-          {/* <BigRunTime>
+          <BigOverView>{data && data?.overview}</BigOverView>
+          <BigRunTime>
             {movieId
               ? `${hour}시간 ${minutes}분`
               : `시즌: ${data?.number_of_seasons}`}
-          </BigRunTime> */}
-          {/* <BigGenres>
-            {data &&
-              data?.genres.map((genre) => (
-                <Genre key={genre.id}>{genre.name}</Genre>
-              ))}
-          </BigGenres> */}
-          {/* <CompanyTitle>제작사</CompanyTitle> */}
-          )
+          </BigRunTime>
+
+          <CompanyTitle>제작사</CompanyTitle>
+          
+         
         </Container>
       )}
     </>
