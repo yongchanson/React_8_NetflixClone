@@ -6,6 +6,7 @@ import { makeImagePath } from "../utils";
 import { useState } from "react"
 import { useHistory, useRouteMatch } from "react-router-dom";
 import noPoster from '../Components/noPoster.png';
+import Detail from '../Components/Detail';
 
 const Wrapper = styled.div`
   background: black;
@@ -257,7 +258,7 @@ function Tv() {
   };
   const toggleLeaving = () => setLeaving((prev) => !prev);
   const onBoxClicked = (tvId: number) => {
-    history.push(`/tv/show/${tvId}`);
+    history.push(`/tv/${tvId}`);
   };
   const onOverlayClick = () => history.push("/tv");
   const clickedtv =
@@ -277,7 +278,6 @@ function Tv() {
         </Banner> 
           <Slider>
           <h1>상영중인 tv</h1>
-          {/* 슬라이더 제자리시작 : initial={false} */}
             <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
               <Row
                 variants={rowVariants}
@@ -287,9 +287,7 @@ function Tv() {
                 transition={{ type: "tween", duration: 1 }}
                 key={todayIndex}
               >
-                {/* {[1, 2, 3, 4, 5, 6].map((i) => (
-                  <Box key={i}>{i}</Box>
-                ))} */}
+
                 {data?.results
                   .slice(1)
                   .slice(offset * todayIndex, offset * todayIndex + offset)
@@ -409,21 +407,7 @@ function Tv() {
                 style={{ top: scrollY.get() + 100 }}
                 layoutId={bigMovieMatch.params.tvId}
               >
-                  {clickedtv && (
-                    <>
-                      <BigCover
-                        style={{
-                          backgroundImage: `linear-gradient(to top, black, transparent), url(${makeImagePath(
-                            clickedtv.backdrop_path,
-                            "w500"
-                          )})`,
-                        }}
-                      />
-                      <BigTitle>{clickedtv.name}</BigTitle>
-                      <BigOverview>{clickedtv.overview}</BigOverview>
-
-                    </>
-                  )}
+                <Detail />
               </BigMovie>
             </>
             ) : null}

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { ISearchResult, searchAll } from '../api';
 import { makeImagePath } from '../utils';
 import { AnimatePresence, motion, useViewportScroll } from 'framer-motion';
-// import Detail from '../Components/Detail';
+import Detail from '../Components/Detail';
 // import { Helmet } from 'react-helmet';
 
 //home base
@@ -190,9 +190,9 @@ function Search() {
   );
   const onBoxClicked = (mediaType: string, searchId: number) => {
     if (mediaType === 'movie') {
-      history.push(`/search/movies/${searchId}`);
+      history.push(`/movies/${searchId}`);
     } else if (mediaType === 'tv') {
-      history.push(`/search/tv/${searchId}`);
+      history.push(`/tv/${searchId}`);
     } else {
       return;
     }
@@ -247,20 +247,7 @@ function Search() {
                 style={{ top: scrollY.get() + 100 }}
                 layoutId={bigMovieMatch.params.movieId}
               >
-                  {clickedMovie && (
-                    <>
-                      <BigCover
-                        style={{
-                          backgroundImage: `linear-gradient(to top, black, transparent), url(${makeImagePath(
-                            clickedMovie.backdrop_path,
-                            "w500"
-                          )})`,
-                        }}
-                      />
-                      <BigTitle>{clickedMovie.title}</BigTitle>
-                      <BigOverview>{clickedMovie.overview}</BigOverview>
-                    </>
-                  )}
+                <Detail />
               </BigMovie>
             </>
             ) : null}
