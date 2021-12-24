@@ -209,7 +209,7 @@ const offset = 6; //한페이지에 보이는 개수
 
 function Tv() {
   const history = useHistory();
-  const bigMovieMatch = useRouteMatch<{ tvId: string }>('/tv/show/:tvId');
+  const bigMovieMatch = useRouteMatch<{ tvId: string }>('/tvs/:tvId');
   // console.log(bigMovieMatch);
   const { scrollY } = useViewportScroll();
   const { data, isLoading: todayLoading } = useQuery<IGetTv>(
@@ -258,7 +258,7 @@ function Tv() {
   };
   const toggleLeaving = () => setLeaving((prev) => !prev);
   const onBoxClicked = (tvId: number) => {
-    history.push(`/tv/${tvId}`);
+    history.push(`/tvs/${tvId}`);
   };
   const onOverlayClick = () => history.push("/tv");
   const clickedtv =

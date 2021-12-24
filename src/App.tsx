@@ -20,7 +20,7 @@ function App() {
 			{/* <Route path={["/", "/movies/:movieId"]}>
 				<Home />
 			</Route> */}
-			<Route path={["/movies/:movieId", "/tv/:tvId"]}>
+			<Route path={["/movies/:movieId", "/tvs/:tvId"]}>
 				<Detail />
 			</Route>
 

@@ -192,7 +192,7 @@ function Search() {
     if (mediaType === 'movie') {
       history.push(`/movies/${searchId}`);
     } else if (mediaType === 'tv') {
-      history.push(`/tv/${searchId}`);
+      history.push(`/tvs/${searchId}`);
     } else {
       return;
     }

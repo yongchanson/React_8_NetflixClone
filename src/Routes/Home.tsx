@@ -184,26 +184,6 @@ const TopSlide = styled.div`
   margin-top: 300px;
   position: relative;
 `;
-const BigGenres = styled.ul`
-  display: flex;
-  position: relative;
-  top: -80px;
-  padding: 20px;
-`;
-const Genre = styled.li`
-  margin-right: 10px;
-  background-color: red;
-  font-size: 17px;
-  font-weight: bold;
-  border-radius: 5px;
-  padding: 5px 5px;
-  transition: all 0.3s linear;
-  cursor: pointer;
-  &:hover {
-    color: black;
-    background-color: white;
-  }
-`;
 
 const offset = 6; //한페이지에 보이는 개수
 

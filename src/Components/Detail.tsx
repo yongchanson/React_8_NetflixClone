@@ -160,7 +160,7 @@ const Detail = () => {
           />
           <BigHeader>
             <BigTitle>{movieId ? data?.title : data?.name}</BigTitle>
-            <BigRate>{`⭐️ ${data && data?.vote_average}`}</BigRate>
+            <BigRate>{`평점 : ${data && data?.vote_average}`}</BigRate>
           </BigHeader>
           <BigOverView>{data && data?.overview}</BigOverView>
           <BigRunTime>
@@ -168,8 +168,13 @@ const Detail = () => {
               ? `${hour}시간 ${minutes}분`
               : `시즌: ${data?.number_of_seasons}`}
           </BigRunTime>
-
-          <CompanyTitle>제작사</CompanyTitle>
+          <BigGenres>
+            {data &&
+              data?.genres.map((genre) => (
+                <Genre key={genre.id}>{genre.name}</Genre>
+              ))}
+          </BigGenres>
+         
           
          
         </Container>
