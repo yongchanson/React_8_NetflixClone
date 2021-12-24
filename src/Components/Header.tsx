@@ -62,7 +62,7 @@ const Search = styled.form`
 `;
 
 // const Circle = styled.span`
-const Circle = styled(motion.div)`//원이동 '애니메이션'을 위한
+const Circle = styled(motion.div)`
   width: 5px;
   height: 5px;
   border-radius: 5px;
