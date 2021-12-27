@@ -49,7 +49,8 @@ export function topMovies() {
  
 export function upcomingMovie() {
   return fetch(
-    `${BASE_PATH}/movie/upcoming?api_key=${API_KEY}&page=5`
+    `${BASE_PATH}/movie/upcoming?api_key=${API_KEY}&page=2`
+    //page가 없거나 1인경우 : 상영중인 영화의 포스터가 이동하는 현상있음
   ).then((response) => response.json());
 }
 //search
@@ -103,7 +104,7 @@ export interface IGetMovieDetail {
   title: string;
   vote_average: number;
   overview: string;
-  poster_path?: string;
+  poster_path: string;
   name: string;
   runtime: number;
   number_of_seasons: number;

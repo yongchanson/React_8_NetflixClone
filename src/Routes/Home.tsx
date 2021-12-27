@@ -295,12 +295,12 @@ return (
               </Row>
             </AnimatePresence>
             <ArrowBtn onClick={incraseIndex}>
-              화살표
+            💨
             </ArrowBtn>
           </Slider>
 {/* 커밍슬라이더 */}
           <UpcomingSlide>
-            <h1>곧 나올 영화</h1>
+            <h1>개봉예정 영화</h1>
             <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
               <Row
                 variants={rowVariants}
@@ -327,6 +327,13 @@ return (
                         ? makeImagePath(movie.backdrop_path, 'w500')
                         : noPoster
                       }
+                      // bgPhoto={makeImagePath(
+                      //   movie.backdrop_path
+                      //     ? movie.backdrop_path
+                      //     : ( movie.poster_path ? movie.poster_path : noPoster)
+                      //     ,
+                      //   "w500"
+                      // )}
                     >
                       <Info variants={infoVariants}>
                         <h4>{movie.title}</h4>
@@ -336,12 +343,12 @@ return (
               </Row>
             </AnimatePresence>
             <ArrowBtn onClick={upInCreseIndex}>
-              화살표
+            💨
             </ArrowBtn>
           </UpcomingSlide>          
 {/* 평점탑영화 */}
 <TopSlide>
-            <h1>평점 탑 영화</h1>
+            <h1>최고의 영화</h1>
             <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
               <Row
                 variants={rowVariants}
@@ -373,7 +380,7 @@ return (
               </Row>
             </AnimatePresence>
             <ArrowBtn onClick={topIncreseIndex}>
-              화살표
+            💨
             </ArrowBtn>
           </TopSlide>
           <AnimatePresence>

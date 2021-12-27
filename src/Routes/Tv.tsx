@@ -277,7 +277,7 @@ function Tv() {
           <Overview>{data?.results[0].overview}</Overview>
         </Banner> 
           <Slider>
-          <h1>상영중인 tv</h1>
+          <h1>상영중인 콘텐츠</h1>
             <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
               <Row
                 variants={rowVariants}
@@ -314,12 +314,12 @@ function Tv() {
               </Row>
             </AnimatePresence>
             <ArrowBtn onClick={increaseToday}>
-              화살표
+            💨
             </ArrowBtn>
           </Slider>
 {/* 커밍슬라이더 */}
           <UpcomingSlide>
-            <h1>인기 tv</h1>
+            <h1>인기 콘텐츠</h1>
             <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
               <Row
                 variants={rowVariants}
@@ -355,12 +355,12 @@ function Tv() {
               </Row>
             </AnimatePresence>
             <ArrowBtn onClick={increasePop}>
-              화살표
+            💨
             </ArrowBtn>
           </UpcomingSlide>          
 {/* 평점탑영화 */}
 <TopSlide>
-            <h1>평점 탑 tv</h1>
+            <h1>최고의 콘텐츠</h1>
             <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
               <Row
                 variants={rowVariants}
@@ -392,7 +392,7 @@ function Tv() {
               </Row>
             </AnimatePresence>
             <ArrowBtn onClick={increaseTop}>
-              화살표
+            💨
             </ArrowBtn>
           </TopSlide>
           <AnimatePresence>

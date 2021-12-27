@@ -73,7 +73,7 @@ const Circle = styled(motion.div)`
   right: 0;
   margin: 0 auto;
   //
-  background-color: ${(props) => props.theme.red};
+  /* background-color: ${(props) => props.theme.red}; */
   
   /* background-image: url(${flag}); */
 `;
@@ -183,12 +183,12 @@ function Header() {
         <Items>
           <Item>
             <Link to="/">
-              Home {homeMatch?.isExact && <Circle layoutId="circle" />}
+              Home {homeMatch?.isExact && <Circle layoutId="circle"> 🚩</Circle>}
             </Link>
           </Item>
           <Item>
             <Link to="/tv">
-              Tv Shows {tvMatch && <Circle layoutId="circle" />}
+              Tv Shows {tvMatch && <Circle layoutId="circle"> 🚩</Circle>}
             </Link>
           </Item>
         </Items>
