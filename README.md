@@ -8,3 +8,7 @@
 
 4. tvshow - detail 이동시 라우터가 tvshow에 계속 위치
    -> detail page : tv/tvId -> tvs/tvId로 변경(임시해결)
+
+### 배포사이트
+
+https://yongchanson.github.io/React_8_NetflixClone/
