@@ -59,5 +59,6 @@
     "@types/react-helmet": "^6.1.4",
     "@types/react-router-dom": "^5.3.2",
     "@types/styled-components": "^5.1.17"
-  }
+  },
+  "homepage": "https://yongchanson.github.io/React_8_NetflixClone"
 }
