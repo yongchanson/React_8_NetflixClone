@@ -205,6 +205,11 @@ const Genre = styled.li`
   }
 `;
 
+const SliderTitle = styled.div`
+  font-size: 32px;
+  font-weight: 600;  
+`;
+
 const offset = 6; //한페이지에 보이는 개수
 
 function Tv() {
@@ -277,7 +282,7 @@ function Tv() {
           <Overview>{data?.results[0].overview}</Overview>
         </Banner> 
           <Slider>
-          <h1>상영중인 콘텐츠</h1>
+            <SliderTitle>상영중인 콘텐츠</SliderTitle>
             <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
               <Row
                 variants={rowVariants}
@@ -319,7 +324,7 @@ function Tv() {
           </Slider>
 {/* 커밍슬라이더 */}
           <UpcomingSlide>
-            <h1>인기 콘텐츠</h1>
+            <SliderTitle>인기 콘텐츠</SliderTitle>
             <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
               <Row
                 variants={rowVariants}
@@ -360,7 +365,7 @@ function Tv() {
           </UpcomingSlide>          
 {/* 평점탑영화 */}
 <TopSlide>
-            <h1>최고의 콘텐츠</h1>
+            <SliderTitle>최고의 콘텐츠</SliderTitle>
             <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
               <Row
                 variants={rowVariants}

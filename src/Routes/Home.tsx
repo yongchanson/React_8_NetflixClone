@@ -185,6 +185,11 @@ const TopSlide = styled.div`
   position: relative;
 `;
 
+const SliderTitle = styled.div`
+  font-size: 32px;
+  font-weight: 600;  
+`;
+
 const offset = 6; //한페이지에 보이는 개수
 
 function Home() {
@@ -255,8 +260,7 @@ return (
           <Overview>{data?.results[0].overview}</Overview>
         </Banner> 
           <Slider>
-          <h1>상영중인 영화</h1>
-          {/* 슬라이더 제자리시작 : initial={false} */}
+            <SliderTitle>상영중인 영화</SliderTitle>
             <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
               <Row
                 variants={rowVariants}
@@ -266,9 +270,6 @@ return (
                 transition={{ type: "tween", duration: 1 }}
                 key={index}
               >
-                {/* {[1, 2, 3, 4, 5, 6].map((i) => (
-                  <Box key={i}>{i}</Box>
-                ))} */}
                 {data?.results
                   .slice(1)
                   .slice(offset * index, offset * index + offset)
@@ -300,7 +301,7 @@ return (
           </Slider>
 {/* 커밍슬라이더 */}
           <UpcomingSlide>
-            <h1>개봉예정 영화</h1>
+            <SliderTitle>개봉예정 영화</SliderTitle>
             <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
               <Row
                 variants={rowVariants}
@@ -348,7 +349,7 @@ return (
           </UpcomingSlide>          
 {/* 평점탑영화 */}
 <TopSlide>
-            <h1>최고의 영화</h1>
+            <SliderTitle>최고의 영화</SliderTitle>
             <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
               <Row
                 variants={rowVariants}
