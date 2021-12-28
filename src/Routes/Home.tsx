@@ -7,6 +7,7 @@ import { useState } from "react"
 import { useHistory, useRouteMatch } from "react-router-dom";
 import noPoster from '../Components/noPoster.png';
 import Detail from '../Components/Detail';
+import { Helmet } from 'react-helmet';
 
 const Wrapper = styled.div`
   background: black;
@@ -250,7 +251,12 @@ function Home() {
     const isLoading = nowLoading || topMovieLoading || upcomingLoading;
 return (
   <Wrapper>
-      {isLoading ? (<Loader>Loading...</Loader>) : (
+      <Helmet>
+        <title>Home | Netflix</title>
+      </Helmet>
+      {isLoading ? (
+        <Loader>Loading...</Loader>
+      ) : (
       <>
         <Banner
             // onClick={incraseIndex}
