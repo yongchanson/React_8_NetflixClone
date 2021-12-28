@@ -1,3 +1,7 @@
+### 사용한것
+
+- Framer Motion, typescript, styled-components, react-query, react-router-dom, react-helmet
+
 ### 추가한부분
 
 1. 디테일페이지 추가(기존에는 홈에 디테일페이지가 포함)
