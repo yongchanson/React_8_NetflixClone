@@ -5,7 +5,7 @@ import { ISearchResult, searchAll } from '../api';
 import { makeImagePath } from '../utils';
 import { AnimatePresence, motion, useViewportScroll } from 'framer-motion';
 import Detail from '../Components/Detail';
-// import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet';
 
 //home base
 const Wrapper = styled.div`
@@ -205,7 +205,10 @@ function Search() {
 
   return (
     <Wrapper>
-        {isLoading ? (
+      <Helmet>
+        <title>{`Search | ${keyword}`}</title>
+      </Helmet>
+      {isLoading ? (
         <Loader>Loading...</Loader>
       ) : (
         <>
